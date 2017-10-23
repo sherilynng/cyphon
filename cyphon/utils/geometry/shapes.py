@@ -272,6 +272,9 @@ def convert_to_point(location, location_format):
     if isinstance(location, Point):
         return location
     try:
+        if (isinstance(location, dict)
+                and 'lat' in location and 'lon' in location):
+            return Point(location['lon'], location['lat'])
         if location_format.lower().startswith('lat'):
             location = reverse_coordinate_order(location)
         return Point(location)
